@@ -1,8 +1,6 @@
 import { createProduct, getAllProducts, deleteProduct, getSpecificProduct } from "@/prisma/product";
 
 export default async function handle(req, res) {
-    console.log("hello world");
-
     try {
         switch (req.method) {
             case 'POST': {
@@ -25,7 +23,6 @@ export default async function handle(req, res) {
 
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "An error occurred" }); // Return a 500 status code for errors.
+        res.status(500).json({ message: "An error occurred", error: error }); // Return a 500 status code for errors.
     }
 }

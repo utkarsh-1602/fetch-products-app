@@ -2,13 +2,16 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const createProduct = async (image, title, price, category, description) => {
+
+    console.log("My Product Info ====> ", image, title, price, category, description)
+
     const product = await prisma.product.create({
         data: {
             image,
             title,
             price,
             category,
-            description
+            description: description
         }
     });
 
@@ -17,8 +20,17 @@ export const createProduct = async (image, title, price, category, description) 
 
 
 export const getAllProducts = async () => {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+        where: {
+            NOT: {
+                description: {
+                    equals: null
+                }
+            }
+        }
+    });
 
+    console.log("All products Info ====> ", products)
     return products
 }
 
