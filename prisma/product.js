@@ -1,13 +1,14 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const createProduct = async (image, title, price, category) => {
+export const createProduct = async (image, title, price, category, description) => {
     const product = await prisma.product.create({
         data: {
             image,
             title,
             price,
-            category
+            category,
+            description
         }
     });
 
