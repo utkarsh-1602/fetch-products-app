@@ -22,6 +22,16 @@ export const getAllProducts = async () => {
 }
 
 
+export const getSpecificProduct = async (id) => {
+    const product = await prisma.product.findUnique({
+        where: {
+            id: id
+        }
+    })
+    return product
+}
+
+
 export const deleteProduct = async (id) => {
     const products = await prisma.product.delete({
         where: {
