@@ -1,13 +1,11 @@
 import { createProduct, getAllProducts, deleteProduct, getSpecificProduct } from "@/prisma/product";
 
 export default async function handle(req, res) {
-    console.log("hello world");
-
     try {
         switch (req.method) {
             case 'POST': {
-                const { image, title, price, category } = req.body;
-                const new_product = await createProduct(image, title, price, category);
+                const { image, title, price, category, description } = req.body;
+                const new_product = await createProduct(image, title, price, category, description);
                 return res.status(201).json(new_product);
             }
 
@@ -25,7 +23,6 @@ export default async function handle(req, res) {
 
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "An error occurred" }); // Return a 500 status code for errors.
+        res.status(500).json({ message: "An error occurred", error: error }); // Return a 500 status code for errors.
     }
 }
