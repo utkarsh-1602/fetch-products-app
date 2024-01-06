@@ -2,6 +2,7 @@ import useAddProduct from "@/hooks/useAddProduct"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import axios from "axios"
+// import upload from "@/middlewares/multer"
 
 const addProduct = () => {
 
@@ -47,6 +48,9 @@ const addProduct = () => {
             formData.append('description', description);
             formData.append('category', category);
             formData.append('image', selectedFile); // Append the selected file.
+
+            // Use Multer middleware for file upload.
+            const multerMiddleware = upload.array('image', 1); // 'image' should match your input field name.
 
             try {
                 // Make a POST request to your add product API.
